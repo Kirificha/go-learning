@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func fizz() {
 
@@ -46,6 +49,7 @@ func days() {
 	}
 }
 
+// задания из дня 3
 func divide(a, b float64) (float64, error) {
 	if b == 0 {
 		return 0, fmt.Errorf("Нельзя делить на ноль")
@@ -68,6 +72,7 @@ func minMax(nums []int) (int, int) {
 	return minn, maxx
 }
 
+// задания из дня 4
 func slices(slice []string) []string {
 	names := []string{}
 	for _, v := range slice {
@@ -76,4 +81,23 @@ func slices(slice []string) []string {
 		}
 	}
 	return names
+}
+
+func doubles(text string) any {
+	words := strings.Split(text, " ")
+	mapa := map[string]int{}
+	for _, v := range words {
+		mapa[v]++
+	}
+	return mapa
+}
+
+func chet(nums []int) []int {
+	s := []int{}
+	for i := range nums {
+		if nums[i]%2 == 0 {
+			s = append(s, nums[i])
+		}
+	}
+	return s
 }
