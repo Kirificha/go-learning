@@ -1,14 +1,13 @@
 package main
 
-import (
-	"fmt"
-)
-
 func main() {
-	name := "Кирилл"
+	//name := "Кирилл"
 	const nextname = "Сорока"
-	age := 18
+	//age := 18
 	const birth = 2008
 
-	fmt.Println(name, nextname, age, birth)
+	// fmt.Println(name, nextname, age, birth)
+
+	//iff()
+	forrr()
 }
