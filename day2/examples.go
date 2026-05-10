@@ -67,3 +67,13 @@ func minMax(nums []int) (int, int) {
 	}
 	return minn, maxx
 }
+
+func slices(slice []string) []string {
+	names := []string{}
+	for _, v := range slice {
+		if len([]rune(v)) > 4 {
+			names = append(names, v)
+		}
+	}
+	return names
+}
