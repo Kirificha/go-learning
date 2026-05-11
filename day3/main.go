@@ -3,19 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	a := 2.0
-	b := 3.0
+	a := make(chan int)
+	b := make(chan int)
 
-	fmt.Println(
-		Add(a, b),
-		Substract(a, b),
-		Multiply(a, b),
-	)
+	go func() { a <- 1; b <- 2 }()
 
-	result, err := Divide(a, b)
-	if err != nil {
-		fmt.Println("Ошибка:", err)
-	} else {
-		fmt.Println(result)
-	}
+	y := merge(a, b)
+
+	fmt.Println(<-y)
+	fmt.Println(<-y)
 }
