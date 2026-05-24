@@ -45,6 +45,7 @@ func NewTrack(distance int) Track {
 func Drive(car Car) Car {
 	battery := car.battery - car.batteryDrain
 	if battery < 0 {
+		battery += car.batteryDrain
 		distancen := 0 + car.distance
 		return Car{battery: battery, batteryDrain: car.batteryDrain, speed: car.speed, distance: distancen}
 	} else {
