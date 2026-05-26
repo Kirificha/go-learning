@@ -22,6 +22,19 @@ func validateLengthBad(s string) error {
 	return myErr
 }
 
+func validateLengthFixed(s string) error {
+	var myErr *MyError
+	if len(s) < 3 {
+		myErr = &MyError{}
+	}
+
+	if myErr != nil {
+		return myErr
+	}
+
+	return nil
+}
+
 func main() {
 
 	err1 := validateLength("ab")
