@@ -30,7 +30,7 @@ func wrongVersion() {
 
 	for i := 0; i < 3; i++ {
 		go func(n int) {
-			wg.Add(1) // ОШИБКА: Add внутри горутины
+			wg.Add(1) // ОШИБКА: Add внутри горутины, иногда 0 горутин, иногда 1, иногда 3
 			fmt.Println("Я горутина номер: ", n)
 			wg.Done()
 		}(i)
