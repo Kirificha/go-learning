@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 	/*	score := []Scores{
 			{Category: "Sleep", Score: 61},
@@ -9,5 +11,7 @@ func main() {
 		fmt.Println(i) */
 
 	read()
-	Questions("Кирилл")
+	scores := Questions(name)
+	result, _ := Condition(scores, results)
+	fmt.Println(result)
 }

@@ -2,9 +2,10 @@ package main
 
 import "fmt"
 
+var name string
+
 func read() {
 	var height, weight, age, next int
-	var name string
 
 	start := func() {
 		fmt.Println("Как вас зовут?")
@@ -29,21 +30,19 @@ func read() {
 	}
 }
 
-func Questions(name string) {
+func Questions(name string) []Scores {
 	var next int
 	fmt.Printf("Приветствую %s! Хотите пройти общий опрос или выбрать категорию?", name)
 	fmt.Println("1 - общий опрос, 2 - выбрать категорию")
+	fmt.Scan()
 	fmt.Scan(&next)
 
-loop:
 	for {
 		switch next {
 		case 1:
-			runFullSurvey()
-			break loop
+			return runFullSurvey()
 		case 2:
-			runSelectedSurvey(questions)
-			break loop
+			return runSelectedSurvey(questions)
 		default:
 			fmt.Println("Введите число 1 или 2")
 			fmt.Scan(&next)
@@ -59,7 +58,8 @@ func runFullSurvey() []Scores {
 	}
 	for _, question := range questions {
 		num := 0
-		fmt.Println(question, "\n 1 - Да, 2 - Нет")
+		fmt.Println(question.Text, "\n\n 1 - Да, 2 - Нет")
+		fmt.Scan()
 		fmt.Scanln(&num)
 		if num == 1 {
 			for i := range result {
@@ -78,11 +78,12 @@ func runFullSurvey() []Scores {
 func runSelectedSurvey(questions []Question) []Scores {
 	var category string
 	score := 0
-	num := 0
+	var num int
 
 loop:
 	for {
 		fmt.Println("Выберите категорию:\n 1 - Сон, 2 - Энергия")
+		fmt.Scan()
 		fmt.Scanln(&num)
 
 		switch num {
@@ -109,7 +110,6 @@ loop:
 			}
 
 		}
-
 	}
 	result := []Scores{
 		{Category: category, Score: score},
