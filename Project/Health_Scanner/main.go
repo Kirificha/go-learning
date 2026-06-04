@@ -12,6 +12,6 @@ func main() {
 
 	read()
 	scores := Questions(name)
-	result, _ := Condition(scores, results)
-	fmt.Println(result)
+	diagnos, _ := Condition(scores, results)
+	fmt.Println(diagnos)
 }
