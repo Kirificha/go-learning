@@ -5,8 +5,11 @@ import (
 	"sync"
 )
 
+var wg sync.WaitGroup
+
 func main() {
-	gor()
+	thousand()
+	fmt.Println(counter)
 }
 
 func worker(i int) {
@@ -27,4 +30,21 @@ func gor() {
 
 	wg.Wait()
 
+}
+
+var counter int
+
+var sc sync.Mutex
+
+func thousand() {
+	wg.Add(1000)
+	for i := 0; i < 1000; i++ {
+		go func() {
+			sc.Lock()
+			counter++
+			defer sc.Unlock()
+			wg.Done()
+		}()
+	}
+	wg.Wait()
 }
