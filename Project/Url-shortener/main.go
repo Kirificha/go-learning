@@ -2,21 +2,40 @@ package main
 
 import (
 	"fmt"
-	"net/http"
+	"math/rand"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
+
+var UserURL = map[string]string{}
+
+type Url struct {
+	URL string `json:"url"`
+}
 
 func main() {
 
-	http.HandleFunc("/hello", HandleFunc)
+	router := gin.Default()
 
+	router.POST("/shorten", ShortenUrl)
+	router.GET("/hello", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "Hello!"})
+	})
+	router.GET("/:shortcode", func(c *gin.Context) {
+		code := c.Param("shortcode")
+		originalURL := UserURL[code]
+		c.Redirect(302, originalURL)
+	})
+	router.Run(":8080")
 	fmt.Println("Запустили сервер на :8080")
-
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		fmt.Println("Error start:", err)
-	}
 }
 
-func HandleFunc(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello!"))
+func ShortenUrl(c *gin.Context) {
+	var req Url
+	c.ShouldBindJSON(&req)
+	code := strconv.Itoa(rand.Int())
+	UserURL[code] = req.URL
+	c.JSON(200, gin.H{"short": code})
+	fmt.Println("Получил URL:", req.URL)
 }
