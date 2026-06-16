@@ -18,6 +18,9 @@ func main() {
 
 	router := gin.Default()
 
+	defer db.Close()
+	db, _ = initDB()
+
 	router.POST("/shorten", ShortenUrl)
 	router.GET("/hello", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "Hello!"})
