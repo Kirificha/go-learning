@@ -24,7 +24,11 @@ func main() {
 	})
 	router.GET("/:shortcode", func(c *gin.Context) {
 		code := c.Param("shortcode")
-		originalURL := UserURL[code]
+		originalURL, ok := UserURL[code]
+		if ok != true {
+			c.JSON(404, gin.H{"error": "not found"})
+			return
+		}
 		c.Redirect(302, originalURL)
 	})
 	router.Run(":8080")
