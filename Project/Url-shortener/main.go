@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,13 +16,17 @@ func main() {
 
 	router := gin.Default()
 
-	database, _ := initDB()
+	pool, err := initDB()
+	db = pool
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	defer db.Close()
 
-
 	router.POST("/shorten", ShortenUrl)
-	router.GET("/hello", /////)
-	router.GET("/:shortcode", //// )
+	router.GET("/hello", Hello)
+	router.GET("/:shortcode", RedirectHandler)
 	router.Run(":8080")
 	fmt.Println("Запустили сервер на :8080")
 }
