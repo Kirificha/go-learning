@@ -19,10 +19,7 @@ func initDB() (*pgxpool.Pool, error) {
 		return nil, err
 	}
 
-	_, err = pool.Exec(ctx,
-		`CREATE TABLE IF NOT EXISTS urls (
-		short_code TEXT PRIMARY KEY,
-		original_url TEXT NOT NULL)`)
+	_, err = pool.Exec(ctx, `CREATE TABLE IF NOT EXISTS urls (short_code TEXT PRIMARY KEY, original_url TEXT NOT NULL)`)
 
 	if err != nil {
 		return nil, err
