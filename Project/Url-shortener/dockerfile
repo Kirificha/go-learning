@@ -4,10 +4,10 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN go build -o /app/urlshortener
+RUN CGO_ENABLED=0 go build -o /app/urlshortener
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 COPY --from=builder /app /app
-CMD ["/app"]
+CMD ["/app/urlshortener"]
 
 
