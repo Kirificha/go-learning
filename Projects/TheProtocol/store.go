@@ -16,7 +16,7 @@ const (
 )
 
 type Store interface {
-	AddSession(s Session) error
+	AddSession(s []Session) error
 	ListSessionsByDate(date string) ([]Session, error)
 	ListSessionsByPeriod(firstDate string, lastDate string) ([]Session, error)
 	TotalMinutes() (int, error)
@@ -27,9 +27,14 @@ type MemoryStore struct {
 	ID       int
 }
 
-func (m *MemoryStore) AddSession(s Session) error {
-	m.ID++
-	m.Sessions = append(m.Sessions, s)
+var iterator int = 0
+
+func (m *MemoryStore) AddSession(sessions []Session) error {
+	for _, s := range sessions {
+		m.ID++
+		s.ID = m.ID
+		m.Sessions = append(m.Sessions, s)
+	}
 	return nil
 }
 
