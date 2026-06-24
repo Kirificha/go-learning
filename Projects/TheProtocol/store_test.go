@@ -90,3 +90,12 @@ func TestMemoryStore_ListSessionsByPeriod(t *testing.T) {
 		t.Errorf("Ошибка")
 	}
 }
+
+func TestMemoryStore_TotalMinutes(t *testing.T) {
+	store := &MemoryStore{}
+	s := []Session{
+		{ID: 0, Date: "2008-04-04", Minutes: 40, Category: HybridSession},
+		{ID: 0, Date: "2008-04-04", Minutes: 40, Category: HybridSession},
+		{ID: 0, Date: "2008-04-04", Minutes: 40, Category: HybridSession},
+	}
+}
