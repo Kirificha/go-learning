@@ -95,7 +95,17 @@ func TestMemoryStore_TotalMinutes(t *testing.T) {
 	store := &MemoryStore{}
 	s := []Session{
 		{ID: 0, Date: "2008-04-04", Minutes: 40, Category: HybridSession},
-		{ID: 0, Date: "2008-04-04", Minutes: 40, Category: HybridSession},
-		{ID: 0, Date: "2008-04-04", Minutes: 40, Category: HybridSession},
+		{ID: 0, Date: "2008-04-04", Minutes: 70, Category: HybridSession},
+		{ID: 0, Date: "2008-04-04", Minutes: 32, Category: HybridSession},
+	}
+
+	store.AddSession(s)
+	result, err := store.TotalMinutes()
+
+	if err != nil {
+		t.Errorf("Ошибка: %v", err)
+	}
+	if result != 142 {
+		t.Errorf("Ожидали %v, получили %v", 142, result)
 	}
 }
