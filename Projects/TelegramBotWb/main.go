@@ -61,11 +61,6 @@ func main() {
 			panic(err)
 		}
 
-		// Goten new message, using txt from message and id to create a second message to client
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
-		// Reply to previous message of client
-		msg.ReplyToMessageID = update.Message.MessageID
-
 		// Okay, we sended our message, dont care about message, so well discard it
 		if _, err := bot.Send(msg); err != nil {
 			// Notion. Цитата: // Note that panics are a bad way to handle errors. Telegram can
