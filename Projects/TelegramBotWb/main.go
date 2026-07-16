@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/csv"
 	"io"
 	"log"
 	"net/http"
@@ -30,7 +32,7 @@ func main() {
 		if update.Message.Document == nil {
 			continue
 		}
-		// User document (XSLX/CSV)
+		// Validation user document (XSLX/CSV)
 		switch update.Message.Document.MimeType {
 		case "text/csv":
 		case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
@@ -39,6 +41,7 @@ func main() {
 			bot.Send(msg)
 			continue
 		}
+
 		docID := update.Message.Document.FileID
 		file, err := bot.GetFile(tgbotapi.FileConfig{FileID: docID})
 		if err != nil {
@@ -60,6 +63,12 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+
+		// Using encoding/csv
+		readerCSV := csv.NewReader(bytes.NewReader(data))
+		records, err := readerCSV.ReadAll()
+		// Заголовки. Распаршу потом. Также надо будет err поменять на log.print че-то там и continue
+		records[0]
 
 		// Okay, we sended our message, dont care about message, so well discard it
 		if _, err := bot.Send(msg); err != nil {
